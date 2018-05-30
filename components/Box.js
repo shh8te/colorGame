@@ -6,10 +6,10 @@ class Box extends PureComponent {
     objects: [1, 2, 3, 4],
     value: 5,
     buttonStyler: {
-      backgroundColor: '#31d02e'
+      backgroundColor: '#008744'
     },
     xButtonStyler: {
-      backgroundColor: '#31bf2e'
+      backgroundColor: '#009744'
     },
     boxStyler: {
       gridTemplateColumns: '1fr 1fr',
@@ -63,13 +63,16 @@ class Box extends PureComponent {
     return result(max)
   }
 
-  handleUpdate = () => {
+  handleUpdate = () => {    
     const { value } = this.state
     const { resultUpdate } = this.props
     const newValue = value + 2
-
+    
     let obj = this.state.objects.concat()
     const last = obj[obj.length - 1]
+    for (let i = 1; i <= value; i++) {
+      obj.push(last + i)
+    }
 
     const newColumns = this.state.boxStyler.gridTemplateColumns + ' 1fr'
     const newRows = this.state.boxStyler.gridTemplateRows + ' 1fr'
@@ -78,14 +81,23 @@ class Box extends PureComponent {
       gridTemplateRows: newRows
     }
 
-    for (let i = 1; i <= value; i++) {
-      obj.push(last + i)
-    }
+    const colorsArr = ['#008744', '#0057e7', '#d62d20', '#ffa700', '#ffffff']
+    const xColorsArr = ['#009744', '#0067e7', '#d63d20', '#ffb700', '#ffffff']
+    const newButtonColorIndex = this.randomize(colorsArr.map( (elem, i) => i ))
+    const newButtonColor = colorsArr[newButtonColorIndex]
+    const newXButtonColor = xColorsArr[newButtonColorIndex]
     
     this.setState({
       objects: obj,
       value: newValue,
-      boxStyler: newBoxStyler
+      boxStyler: newBoxStyler,
+      buttonStyler: {
+        backgroundColor: newButtonColor
+      },
+      xButtonStyler: {
+        backgroundColor: newXButtonColor
+      },
+
     })
 
     resultUpdate()

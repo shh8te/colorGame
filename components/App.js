@@ -8,7 +8,7 @@ class App extends Component {
     const {
       isStarted,
       isFinished,
-      time,
+      lvltime,
       start,
       result,
       resultUpdate
@@ -17,7 +17,7 @@ class App extends Component {
     return isStarted ? (
       <div className='box'>
         <h1>
-          find the different tone squares as much as you can for {time} sec!
+          find the different tone squares as much as you can for {lvltime} sec!
         </h1>
         <Box resultUpdate={resultUpdate} />
       </div>

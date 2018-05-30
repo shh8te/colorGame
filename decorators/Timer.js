@@ -4,7 +4,8 @@ export default (OriginalComponent) => class Timer extends Component {
   state = {
     isStarted: false,
     isFinished: false,
-    time: 15,
+    lvltime: 4,
+    additionalTime: 5,
     result: 0
   }
 
@@ -13,7 +14,7 @@ export default (OriginalComponent) => class Timer extends Component {
       <OriginalComponent
         {...this.props}
         start = {this.start}
-        time = {this.state.time}
+        lvltime = {this.state.lvltime}
         isStarted = {this.state.isStarted}
         isFinished = {this.state.isFinished}
         result = {this.state.result}
@@ -24,17 +25,18 @@ export default (OriginalComponent) => class Timer extends Component {
 
   start = () => {
     this.setState({
-      time: 15,
+      lvltime: 4,
+      additionalTime: 5,
       isStarted: true,
       result: 0
     })
 
     const timerId = setInterval(() => {
       this.setState({
-        time: this.state.time - 1
+        lvltime: this.state.lvltime - 1
       })
 
-      if (this.state.time <= 0) {
+      if (this.state.lvltime <= 0) {
         clearInterval(timerId)
         this.setState({
           isStarted: false,
@@ -46,7 +48,9 @@ export default (OriginalComponent) => class Timer extends Component {
 
   resultUpdate = () => {
     this.setState({
-      result: this.state.result + 1
+      result: this.state.result + 1,
+      additionalTime: this.state.additionalTime + 1,
+      lvltime: this.state.additionalTime
     })
   }
 }
